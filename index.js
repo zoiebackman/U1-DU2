@@ -27,6 +27,7 @@ if (cityWasFound == false) {
     tabName.innerHTML = "Not Found";
 }
 
+// skriver ut ALLA cityrader
 for ( let i = 0; i <= 38; i++) {
     let cityBoxP = document.createElement("p");
     cityBoxP.classList.add("cityBox");
@@ -38,8 +39,16 @@ for ( let i = 0; i <= 38; i++) {
     }
 }
 
-
-
+/* grid system */
+cityTable.style.gridTemplateRows = "repeat(39, 1fr)";
+for (let i = 0; i <= 39; i++) {
+    for (let j = 0; j <= 39; j++) {
+        let cell = document.createElement("div")
+        cell.textContent = i;
+        cityTable.appendChild(cell);
+    }
+    
+}
 //loop
 
 //grid
