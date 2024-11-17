@@ -44,7 +44,7 @@ cityTable.style.gridTemplateRows = "repeat(39, 1fr)";
 for (let i = 0; i <= 39; i++) {
     for (let j = 0; j <= 39; j++) {
         let cell = document.createElement("div")
-        cell.textContent = i;
+        cell.textContent = "h";
         cityTable.appendChild(cell);
     }
     
