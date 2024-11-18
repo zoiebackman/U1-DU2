@@ -37,23 +37,28 @@ for ( let i = 0; i <= 38; i++) {
     if (enteredCity == cities[i].name) {
         cityBoxP.classList.add("target");
     }
+
+    /* //loopa för gröna rutor
+    if (enteredCity == ) {
+
+    } */
 }
 
 /* grid system */
-cityTable.style.gridTemplateRows = "repeat(40, 1fr)";
+cityTable.style.gridTemplateRows = "repeat(39, 1fr)";
 for (let i = 0; i <= 39; i++) {
     for (let j = 0; j <= 39; j++) {
         let cell = document.createElement("div")
         cell.classList.add("cell");
        
-        cell.textContent = cities[i].name;
+        cell.textContent = "H";
         console.log(i)
         
         if (i == 0) {
             cell.classList.add("head_row");
             cell.textContent = j - 1;
         }
-        if (i == 0 && j == 0) {
+        if (i == j) {
             cell.textContent = "";
         }
         if (j == 0) {
@@ -65,8 +70,8 @@ for (let i = 0; i <= 39; i++) {
         if (i % 2 == 1) {
             cell.classList.add("even_row");
         }
-        if (j == 0){
-            
+        if (j == 0 && i >= 1){
+            cell.textContent = cities[i - 1].id + " - " + cities[i - 1].name;
         }
         
         cityTable.appendChild(cell);
