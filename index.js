@@ -50,9 +50,6 @@ for (let i = 0; i <= 39; i++) {
     for (let j = 0; j <= 39; j++) {
         let cell = document.createElement("div")
         cell.classList.add("cell");
-       
-        cell.textContent = " "
-        console.log(i)
         
         if (i == 0) {
             cell.classList.add("head_row");
@@ -62,6 +59,9 @@ for (let i = 0; i <= 39; i++) {
         if (i >= 1 && j >= 1){
             for(key in distances) {
                 if (distances[key].city1 == j - 1 && distances[key].city2 == i - 1) {
+                    cell.textContent = distances[key].distance / 10;
+                }
+                if (distances[key].city2 == j - 1 && distances[key].city1 == i - 1) {
                     cell.textContent = distances[key].distance / 10;
                 }
             }
