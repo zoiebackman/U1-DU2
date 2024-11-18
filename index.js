@@ -1,4 +1,16 @@
-// Recommended: All functions declared here
+/* // Recommended: All functions declared here
+function furthestCity(city) {
+
+}
+
+function closestCity(city) {
+    for (let i = 0; i < 39; i++) {
+        for (let j = 0; j < 39, i++) {
+            
+        }
+    }
+
+} */
 
 // Recommended: constants with references to existing HTML-elements
 const cityTitle = document.querySelector("h2");
