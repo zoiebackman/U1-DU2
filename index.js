@@ -16,7 +16,7 @@ let cityWasFound = false;
 for (cityKey in cities) {
     if (enteredCity == cities[cityKey].name) {
         cityWasFound = true;
-        cityTitle.innerHTML += `${enteredCity} (${cities[cityKey].country})`;
+        cityTitle.innerHTML = `${enteredCity} (${cities[cityKey].country})`;
         title.innerHTML = enteredCity;
         break; // loopen slutar och behöver inte fortsätta
     }
@@ -46,7 +46,8 @@ for (let i = 0; i <= 39; i++) {
         let cell = document.createElement("div")
         cell.classList.add("cell");
        
-        cell.textContent = "h";
+        cell.textContent = cities[i].name;
+        console.log(i)
         
         if (i == 0) {
             cell.classList.add("head_row");
@@ -58,19 +59,18 @@ for (let i = 0; i <= 39; i++) {
         if (j == 0) {
             cell.classList.add("head_column");
         }
-        if (j % 2 == 0) {
+        if (j % 2 == 1) {
             cell.classList.add("even_col");
         }
-        if (i % 2 == 0) {
+        if (i % 2 == 1) {
             cell.classList.add("even_row");
+        }
+        if (j == 0){
+            
         }
         
         cityTable.appendChild(cell);
-
-
-    }
-     
-
+    }    
 }
 //loop
 
