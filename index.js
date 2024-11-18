@@ -51,16 +51,26 @@ for (let i = 0; i <= 39; i++) {
         let cell = document.createElement("div")
         cell.classList.add("cell");
        
-        cell.textContent = "H";
+        cell.textContent = " "
         console.log(i)
         
         if (i == 0) {
             cell.classList.add("head_row");
             cell.textContent = j - 1;
         }
+
+        if (i >= 1 && j >= 1){
+            for(key in distances) {
+                if (distances[key].city1 == j - 1 && distances[key].city2 == i - 1) {
+                    cell.textContent = distances[key].distance / 10;
+                }
+            }
+        }
+
         if (i == j) {
             cell.textContent = "";
         }
+
         if (j == 0) {
             cell.classList.add("head_column");
         }
