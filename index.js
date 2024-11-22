@@ -1,16 +1,90 @@
-/* // Recommended: All functions declared here
-function furthestCity(city) {
-
-}
-
-function closestCity(city) {
-    for (let i = 0; i < 39; i++) {
-        for (let j = 0; j < 39, i++) {
-            
+// Recommended: All functions declared here
+function cityDistancesFurthest (cityName)  {
+    let cityKey = [];
+    
+    let cityId;
+    for (let i = 0; i < cities.length; i++) {
+        if (cities[i].name == cityName) {
+            cityId = cities[i].id;
         }
     }
 
-} */
+    for (city in distances) {
+        if (cityId == distances[city].city2 || cityId == distances[city].city1){
+            cityKey.push(distances[city].distance);
+        }
+    }
+
+    let furthestCity = cityKey[0];
+
+    for ( let i = 0; i < cityKey.length; i++) {
+        if (cityKey[i] > furthestCity) {
+            furthestCity = cityKey[i];
+        }
+    }
+
+    console.log(furthestCity);
+    return furthestCity;
+
+}
+
+function cityDistancesFurthestName (cityName) {
+    let cityKey = [];
+    
+    let cityId;
+    for (let i = 0; i < cities.length; i++) {
+        if (cities[i].name == cityName) {
+            cityId = cities[i].name;
+        }
+    }
+
+    for (city in distances) {
+        if (cityId == distances[city].city2 || cityId == distances[city].city1){
+            cityKey.push(distances[city].distance);
+        }
+    }
+
+    let furthestCity = cityKey[0];
+
+    for ( let i = 0; i < cityKey.length; i++) {
+        if (cityKey[i] > furthestCity) {
+            furthestCity = cityKey[i];
+        }
+    }
+
+    console.log(furthestCity);
+    return furthestCity;
+
+}
+
+function cityDistancesClosest (cityName) {
+    let cityKey = [];
+
+    let cityId;
+    for (let i = 0; i < cities.length; i++) {
+        if (cities[i].name == cityName) {
+            cityId = cities[i].id;
+        }
+    }
+
+    for (city in distances) {
+        if (cityId == distances[city].city2 || cityId == distances[city].city1){
+            cityKey.push(distances[city].distance);
+        }
+    }
+
+    let closestCity = cityKey[0];
+
+    for ( let i = 0; i < cityKey.length; i++) {
+        if (cityKey[i] < closestCity) {
+            closestCity = cityKey[i];
+        }
+    }
+
+    console.log(closestCity);
+    return closestCity;
+}
+
 
 // Recommended: constants with references to existing HTML-elements
 const cityTitle = document.querySelector("h2");
@@ -36,7 +110,7 @@ for (cityKey in cities) {
 if (cityWasFound == false) {
     cityTitle.innerHTML += enteredCity + " finns inte i databasen";
     cityDetails.innerHTML = "";
-    tabName.innerHTML = "Not Found";
+    title.innerHTML = "Not Found";
 }
 
 // skriver ut ALLA cityrader
@@ -50,50 +124,64 @@ for ( let i = 0; i <= 38; i++) {
         cityBoxP.classList.add("target");
     }
 
-    /* //loopa för gröna rutor
-    if (enteredCity == ) {
+    if (cities[i].id == distances[i].city1) {
+        cityBoxP.classList.add("furthest")
+        cityBoxP.textContent = `${cities[i].name} ligger ${distances[i].distance} mil bort`;
+        cityDetails.textContent = `Av städerna i databasen ligger ${cityDistancesClosest(enteredCity)} närmast och ${cityDistancesFurthest(enteredCity)} längst bort`
+    }
 
-    } */
+    if (cities[i].id == distances[i].city2) {
+        cityBoxP.classList.add("closest")
+        cityBoxP.textContent = `${cities[i].name} ligger ${distances[i].distance} mil bort`;
+    }
 }
+cityDistancesFurthest(enteredCity);
+
+cityDistancesClosest(enteredCity);
+
+cityDistancesFurthestName (enteredCity)
+
 
 /* grid system */
+let distancesToenteredCity = [];
+
 cityTable.style.gridTemplateRows = "repeat(39, 1fr)";
-for (let i = 0; i <= 39; i++) {
-    for (let j = 0; j <= 39; j++) {
+for (let row = 0; row <= 39; row++) {  //row
+    for (let col = 0; col <= 39; col++) { //column
         let cell = document.createElement("div")
         cell.classList.add("cell");
         
-        if (i == 0) {
+        if (row == 0) {
             cell.classList.add("head_row");
-            cell.textContent = j - 1;
+            cell.textContent = col - 1;
         }
 
-        if (i >= 1 && j >= 1){
+        if (row >= 1 && col >= 1){
             for(key in distances) {
-                if (distances[key].city1 == j - 1 && distances[key].city2 == i - 1) {
+                if (distances[key].city1 == col - 1 && distances[key].city2 == row - 1) {
                     cell.textContent = distances[key].distance / 10;
                 }
-                if (distances[key].city2 == j - 1 && distances[key].city1 == i - 1) {
+                if (distances[key].city2 == col - 1 && distances[key].city1 == row - 1) {
                     cell.textContent = distances[key].distance / 10;
                 }
             }
-        }
-
-        if (i == j) {
+        } 
+ 
+        if (row == col) {
             cell.textContent = "";
         }
 
-        if (j == 0) {
+        if (col == 0) {
             cell.classList.add("head_column");
         }
-        if (j % 2 == 1) {
+        if (col % 2 == 1) {
             cell.classList.add("even_col");
         }
-        if (i % 2 == 1) {
+        if (row % 2 == 1 && col != 0) {
             cell.classList.add("even_row");
         }
-        if (j == 0 && i >= 1){
-            cell.textContent = cities[i - 1].id + " - " + cities[i - 1].name;
+        if (col == 0 && row >= 1){
+            cell.textContent = cities[row - 1].id + " - " + cities[row - 1].name;
         }
         
         cityTable.appendChild(cell);
