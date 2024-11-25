@@ -1,6 +1,8 @@
 // Recommended: All functions declared here
 function cityDistancesFurthest (cityName)  {
     let cityKey = [];
+    let cityNameId;
+    let cityObject = {}
     
     let cityId;
     for (let i = 0; i < cities.length; i++) {
@@ -14,51 +16,38 @@ function cityDistancesFurthest (cityName)  {
             cityKey.push(distances[city].distance);
         }
     }
-
-    let furthestCity = cityKey[0];
-
-    for ( let i = 0; i < cityKey.length; i++) {
-        if (cityKey[i] > furthestCity) {
-            furthestCity = cityKey[i];
-        }
-    }
-
-    console.log(furthestCity);
-    return furthestCity;
-
-}
-
-function cityDistancesFurthestName (cityName) {
-    let cityKey = [];
     
-    let cityId;
-    for (let i = 0; i < cities.length; i++) {
-        if (cities[i].name == cityName) {
-            cityId = cities[i].name;
-        }
-    }
-
-    for (city in distances) {
-        if (cityId == distances[city].city2 || cityId == distances[city].city1){
-            cityKey.push(distances[city].distance);
-        }
-    }
-
     let furthestCity = cityKey[0];
 
     for ( let i = 0; i < cityKey.length; i++) {
         if (cityKey[i] > furthestCity) {
             furthestCity = cityKey[i];
+            cityNameId = i;
+        }
+    }
+    
+    
+    let furthestCityName;
+    for (let i = 0; i < cities.length; i++) {
+        if (cities[i].id == cityNameId){
+           furthestCityName = cities[i].name; 
         }
     }
 
-    console.log(furthestCity);
-    return furthestCity;
+    cityObject.distance = furthestCity;
+    cityObject.id = cityNameId;
+    cityObject.name = furthestCityName;
+
+    console.log(cityObject);
+    return cityObject;
 
 }
 
 function cityDistancesClosest (cityName) {
     let cityKey = [];
+    let cityNameId;
+    let cityObject = {}
+
 
     let cityId;
     for (let i = 0; i < cities.length; i++) {
@@ -78,19 +67,30 @@ function cityDistancesClosest (cityName) {
     for ( let i = 0; i < cityKey.length; i++) {
         if (cityKey[i] < closestCity) {
             closestCity = cityKey[i];
+            cityNameId = i;
         }
     }
 
-    console.log(closestCity);
-    return closestCity;
+    let closestCityName;
+    for (let i = 0; i < cities.length; i++) {
+        if (cities[i].id == cityNameId){
+           closestCityName = cities[i].name; 
+        }
+    }
+
+    cityObject.distance = closestCity;
+    cityObject.id = cityNameId;
+    cityObject.name = closestCityName;
+
+
+    console.log(cityObject);
+    return cityObject;
 }
 
 
 // Recommended: constants with references to existing HTML-elements
 const cityTitle = document.querySelector("h2");
 const cityDetails = document.querySelector("h3");
-const cityClosest = document.querySelector("#closest");
-const cityFurthest = document.querySelector("#furthest");
 const cityBox = document.querySelector("#cities");
 const cityTable = document.querySelector("#table");
 const title = document.querySelector("title");
@@ -113,6 +113,8 @@ if (cityWasFound == false) {
     title.innerHTML = "Not Found";
 }
 
+const cityClosest = cityDistancesClosest(enteredCity);
+const cityFurthest = cityDistancesFurthest(enteredCity);
 // skriver ut ALLA cityrader
 for ( let i = 0; i <= 38; i++) {
     let cityBoxP = document.createElement("p");
@@ -124,28 +126,29 @@ for ( let i = 0; i <= 38; i++) {
         cityBoxP.classList.add("target");
     }
 
-    if (cities[i].id == distances[i].city1) {
-        cityBoxP.classList.add("furthest")
-        cityBoxP.textContent = `${cities[i].name} ligger ${distances[i].distance} mil bort`;
-        cityDetails.textContent = `Av städerna i databasen ligger ${cityDistancesClosest(enteredCity)} närmast och ${cityDistancesFurthest(enteredCity)} längst bort`
-    }
-
-    if (cities[i].id == distances[i].city2) {
+    if (cities[i].id == cityClosest.id) {
         cityBoxP.classList.add("closest")
-        cityBoxP.textContent = `${cities[i].name} ligger ${distances[i].distance} mil bort`;
+        cityBoxP.textContent = `${cityClosest.name} ligger ${cityClosest.distance} mil bort`;
     }
+
+    if (cities[i].id === cityFurthest.id) {
+        cityBoxP.classList.add("furthest")
+        cityBoxP.textContent = `${cityFurthest.name} ligger ${cityFurthest.distance} mil bort`;
+        cityDetails.textContent = `Av städerna i databasen ligger ${cityClosest.name} närmast och ${cityFurthest.name} längst bort`
+    }
+
+   
 }
-cityDistancesFurthest(enteredCity);
 
-cityDistancesClosest(enteredCity);
 
-cityDistancesFurthestName (enteredCity)
+
+
 
 
 /* grid system */
 let distancesToenteredCity = [];
 
-cityTable.style.gridTemplateRows = "repeat(39, 1fr)";
+cityTable.style.gridTemplateRows = "repeat(40, 1fr)";
 for (let row = 0; row <= 39; row++) {  //row
     for (let col = 0; col <= 39; col++) { //column
         let cell = document.createElement("div")
