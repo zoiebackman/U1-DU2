@@ -1,4 +1,4 @@
-// Recommended: All functions declared here
+
 function cityDistancesFurthest (cityName)  {
     let cityKey = [];
     let cityNameId;
@@ -14,7 +14,6 @@ function cityDistancesFurthest (cityName)  {
 
     for (city in distances) {
         if (cityId == distances[city].city2 || cityId == distances[city].city1){
-            ; // byt namn distans
            if (cityId == distances[city].city2) {
                 cityKey.push({
                     distance: distances[city].distance,
@@ -67,12 +66,12 @@ function cityDistancesClosest (cityName) {
 
 
     let cityId;
-            for (let i = 0; i < cities.length; i++) {
-                if (cities[i].name == cityName) {
-                    cityId = cities[i].id;
-                    break;
-                }
-            }
+    for (let i = 0; i < cities.length; i++) {
+        if (cities[i].name == cityName) {
+            cityId = cities[i].id;
+            break;
+        }
+    }
 
     for (city in distances) {
 
@@ -112,7 +111,6 @@ function cityDistancesClosest (cityName) {
         if (cities[i].id == cityNameId){
            closestCityName = cities[i].name; 
         }
-       // console.log(cities[i].id,cityNameId )
     }
 
     cityObject.distance = closestCity;
@@ -125,14 +123,12 @@ function cityDistancesClosest (cityName) {
 }
 
 
-// Recommended: constants with references to existing HTML-elements
 const cityTitle = document.querySelector("h2");
 const cityDetails = document.querySelector("h3");
 const cityBox = document.querySelector("#cities");
 const cityTable = document.querySelector("#table");
 const title = document.querySelector("title");
-// Recommended: Ask for the city name and then the rest of the code
-//prompt
+
 const enteredCity = prompt("skriv en stad?");
 
 let cityWasFound = false;
@@ -141,7 +137,7 @@ for (cityKey in cities) {
         cityWasFound = true;
         cityTitle.innerHTML = `${enteredCity} (${cities[cityKey].country})`;
         title.innerHTML = enteredCity;
-        break; // loopen slutar och behöver inte fortsätta
+        break; 
     }
 }
 if (cityWasFound == false) {
@@ -152,7 +148,7 @@ if (cityWasFound == false) {
 
 const cityClosest = cityDistancesClosest(enteredCity);
 const cityFurthest = cityDistancesFurthest(enteredCity);
-// skriver ut ALLA cityrader
+
 for ( let i = 0; i < cities.length; i++) {
     let cityBoxP = document.createElement("p");
     cityBoxP.classList.add("cityBox");
@@ -177,17 +173,9 @@ for ( let i = 0; i < cities.length; i++) {
    
 }
 
-
-
-
-
-
-/* grid system */
-//let distancesToenteredCity = [];
-
 cityTable.style.gridTemplateRows = "repeat(40, 1fr)";
-for (let row = 0; row <= 39; row++) {  //row
-    for (let col = 0; col <= 39; col++) { //column
+for (let row = 0; row <= 39; row++) {  
+    for (let col = 0; col <= 39; col++) { 
         let cell = document.createElement("div")
         cell.classList.add("cell");
         
@@ -227,10 +215,3 @@ for (let row = 0; row <= 39; row++) {  //row
         cityTable.appendChild(cell);
     }    
 }
-//loop
-
-//grid
-//h2 ändras utifrån stad
-//h2 ska försvinna vid en icke databaserad stad
-//h3 ska ändras vid rätt och fel stad
-//funktion
